@@ -42,11 +42,11 @@ class RightContent extends GetView<WeatherController> {
             WeatherCard(
               city: controller.weatherData.value.city ?? '',
               date: controller.weatherData.value.date ?? '',
-              temperature: controller.weatherData.value.temperature ?? 0,
-              wind: controller.weatherData.value.wind ?? 0,
+              temperature: controller.weatherData.value.tempC ?? 0,
+              wind: controller.weatherData.value.windKph ?? 0,
               humidity: controller.weatherData.value.humidity ?? 0,
               conditionText: controller.weatherData.value.conditionText ?? '',
-              iconUrl: controller.weatherData.value.iconUrl ?? '',
+              iconUrl: controller.weatherData.value.conditionIcon ?? '',
             ),
 
             const SizedBox(height: 20),
@@ -62,9 +62,9 @@ class RightContent extends GetView<WeatherController> {
 
                 return ForecastItem(
                   date: item.date ?? '',
-                  iconUrl: item.iconUrl ?? '',
-                  temperature: item.temperature ?? 0,
-                  wind: item.wind ?? 0,
+                  iconUrl: item.conditionIcon ?? '',
+                  temperature: item.tempC ?? 0,
+                  wind: item.windKph ?? 0,
                   humidity: item.humidity ?? 0,
                 );
               }),
@@ -92,9 +92,9 @@ class RightContent extends GetView<WeatherController> {
                               final item = controller.forecastMoreData[index];
                               return ForecastItem(
                                 date: item.date ?? '',
-                                iconUrl: item.iconUrl ?? '',
-                                temperature: item.temperature ?? 0,
-                                wind: item.wind ?? 0,
+                                iconUrl: item.conditionIcon ?? '',
+                                temperature: item.tempC ?? 0,
+                                wind: item.windKph ?? 0,
                                 humidity: item.humidity ?? 0,
                               );
                             }),

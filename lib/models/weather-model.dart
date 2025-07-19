@@ -1,54 +1,51 @@
 class Weather {
   final String? city;
-  final String? date;
-  final double? temperature;
-  final double? wind;
+  final String? country;
+  final String? lastUpdated;
+  final double? tempC;
+  final double? windKph;
   final int? humidity;
   final String? conditionText;
-  final String? iconUrl;
+  final String? conditionIcon;
+  final String? date;
+  final int? rainChance;
 
   Weather({
     this.city,
-    this.date,
-    this.temperature,
-    this.wind,
+    this.country,
+    this.lastUpdated,
+    this.tempC,
+    this.windKph,
     this.humidity,
     this.conditionText,
-    this.iconUrl,
+    this.conditionIcon,
+    this.date,
+    this.rainChance,
   });
 
-  // Parse current weather
   factory Weather.fromJson(
-    Map<String, dynamic> current,
+    Map<String, dynamic> json,
     Map<String, dynamic> location,
   ) {
     return Weather(
       city: location['name'],
-      date: location['localtime']?.split(' ')[0],
-      temperature: (current['temp_c'] as num).toDouble(),
-      wind: (current['wind_kph'] as num).toDouble() / 3.6, // Convert KPH to M/S
-      humidity: current['humidity'],
-      conditionText: current['condition']['text'],
-      iconUrl: 'https:${current['condition']['icon']}',
+      country: location['country'],
+      lastUpdated: json['last_updated'],
+      tempC: (json['temp_c'] as num?)?.toDouble(),
+      windKph: (json['wind_kph'] as num?)?.toDouble(),
+      humidity: json['humidity'] as int?,
+      conditionText: json['condition'] as String?,
+      conditionIcon: json['icon'] as String?,
     );
   }
 
-  // Parse forecast day (1 item in forecastday)
-  factory Weather.fromForecastJson(Map<String, dynamic> dayForecast) {
-    final day = dayForecast['day'];
-    final condition = day['condition'];
-
+  factory Weather.fromForecastJson(Map<String, dynamic> json) {
     return Weather(
-      date: dayForecast['date'],
-      temperature: (day['avgtemp_c'] as num).toDouble(),
-      wind: (day['maxwind_kph'] as num).toDouble() / 3.6,
-      humidity: day['avghumidity'].round(),
-      conditionText: condition['text'],
-      iconUrl: 'https:${condition['icon']}',
+      date: json['date'],
+      tempC: (json['avgtemp_c'] as num?)?.toDouble(),
+      conditionText: json['condition'] as String?,
+      conditionIcon: json['icon'] as String?,
+      rainChance: json['rain_chance'] as int?,
     );
-  }
-  @override
-  String toString() {
-    return 'Weather(city: $city, date: $date, temperature: $temperature, wind: $wind, humidity: $humidity, conditionText: $conditionText, iconUrl: $iconUrl)';
   }
 }
