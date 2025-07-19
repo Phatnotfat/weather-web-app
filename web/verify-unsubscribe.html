@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unsubscription Confirmation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #fef5f5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+      }
+      .container {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+      }
+      h2 {
+        color: #e53935;
+      }
+      #status {
+        font-size: 18px;
+        margin-top: 10px;
+      }
+      #return-btn {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #1a73e8;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2 id="title">Verifying your unsubscription...</h2>
+      <p id="status">Please wait a moment.</p>
+      <button id="return-btn" onclick="location.href='/'">
+        Return to Home
+      </button>
+    </div>
+
+    <script>
+      const titleEl = document.getElementById("title");
+      const statusEl = document.getElementById("status");
+      const returnBtn = document.getElementById("return-btn");
+      const params = new URLSearchParams(window.location.search);
+      const token = params.get("token");
+
+      if (!token) {
+        statusEl.innerText = "Invalid token.";
+        titleEl.style.display = "none";
+        returnBtn.style.display = "block";
+      } else {
+        fetch(
+          `https://us-central1-weather-web-b1e1e.cloudfunctions.net/verifyUnsubscribeToken?token=${token}`
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            titleEl.style.display = "none";
+            if (data.success) {
+              statusEl.innerText =
+                "Unsubscribed successfully. You will no longer receive daily forecasts.";
+            } else {
+              statusEl.innerText = "Expired or invalid token.";
+            }
+            returnBtn.style.display = "block";
+          })
+          .catch(() => {
+            titleEl.style.display = "none";
+            statusEl.innerText = "System error.";
+            returnBtn.style.display = "block";
+          });
+      }
+    </script>
+  </body>
+</html>

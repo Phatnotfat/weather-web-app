@@ -1,0 +1,62 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "weather-web-b1e1e",
+          "appId": "1:418713340038:android:5efd4d9c0ffa26c9df2907",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "weather-web-b1e1e",
+          "appId": "1:418713340038:ios:ae65236bd1bb5a83df2907",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "macos": {
+        "default": {
+          "projectId": "weather-web-b1e1e",
+          "appId": "1:418713340038:ios:ae65236bd1bb5a83df2907",
+          "uploadDebugSymbols": false,
+          "fileOutput": "macos/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "weather-web-b1e1e",
+          "configurations": {
+            "android": "1:418713340038:android:5efd4d9c0ffa26c9df2907",
+            "ios": "1:418713340038:ios:ae65236bd1bb5a83df2907",
+            "macos": "1:418713340038:ios:ae65236bd1bb5a83df2907",
+            "web": "1:418713340038:web:024d6efe34d21a04df2907",
+            "windows": "1:418713340038:web:ed7184215f212351df2907"
+          }
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ]
+    }
+  ],
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
