@@ -31,7 +31,9 @@ class EmailSubscribeWidget extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Obx(
-              () => Row(
+              () => Wrap(
+                spacing: 10,
+                runSpacing: 10,
                 children: [
                   ElevatedButton(
                     onPressed:
@@ -49,7 +51,6 @@ class EmailSubscribeWidget extends StatelessWidget {
                             )
                             : const Text('Subscribe'),
                   ),
-                  const SizedBox(width: 10),
                   TextButton(
                     onPressed:
                         controller.isLoading.value

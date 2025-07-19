@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weather_web/controllers/weather-controller.dart';
 import 'package:weather_web/firebase_options.dart';
+import 'package:weather_web/widgets/content/left-bottom.dart';
+import 'package:weather_web/widgets/content/left-top.dart';
 import 'package:weather_web/widgets/content/right-content.dart';
 import 'package:weather_web/widgets/error/error.dart';
 import 'package:weather_web/widgets/header/header.dart';
@@ -46,14 +48,31 @@ class WeatherDashboard extends GetView<WeatherController> {
             Header(),
             ErrorSection(),
             Expanded(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Left input
-                  Expanded(flex: 2, child: LeftContent()),
-                  // Right content
-                  Expanded(flex: 5, child: RightContent()),
-                ],
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  if (constraints.maxWidth < 600) {
+                    return SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          LeftTop(),
+                          const SizedBox(height: 20),
+                          RightContent(),
+                          const SizedBox(height: 20),
+                          LeftBottom(),
+                        ],
+                      ),
+                    );
+                  }
+
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(flex: 2, child: LeftContent()),
+                      Expanded(flex: 5, child: RightContent()),
+                    ],
+                  );
+                },
               ),
             ),
           ],
